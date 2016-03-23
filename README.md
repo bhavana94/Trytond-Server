@@ -1,2 +1,2 @@
 # Trytond-Server
-Commands to configure and run Trytond and Tryton 
+Commands to Run and Configure Trytond and Tryton 
