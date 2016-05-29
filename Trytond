@@ -6,73 +6,157 @@ Pre-installed things -
 5. Git
 6. Pygtk 
 
-*********************************************************************************************************************************************************
+*****************************************************************************************************************************************
+
 Steps required to setup Trytond Server - 
 
 
-*********************************************************************************************************************************************************
+*****************************************************************************************************************************************
 
-1. Create a new folder.
+1. Install Postgres client and Postgres server 
+	
+	sudo apt-get install postgresql-client
 
-*********************************************************************************************************************************************************
-2. Setup virtual environment using command -> virtualenv venv --system-site-packages
+	sudo apt-get install postgresql postgresql-contrib
 
-*********************************************************************************************************************************************************
-3. Activate virtual environment -> source venv/bin/activate
+	apt-cache search postgres
 
-*********************************************************************************************************************************************************
-4. Install trytond using command -> pip install trytond
+	sudo apt-get install pgadmin3
 
-**********************************************************************************************************************************************************
-5. Install tryton using command -> pip install tryton
+2. Open Postgres 
 
-**********************************************************************************************************************************************************
+	sudo -u postgres psql
 
-6. Now you can install tryton modules like helloworld or cookiecutter from here -> http://www.prakashpandey.in/2015/Aug/06/writing-your-first-tryton-module.html
+3. Create a new role and new database 
 
-***********************************************************************************************************************************************************
-7. Go inside the folder helloworld and create a new folder named etc and place trytond.conf file inside this folder, you can download the trytond.conf file
+	create role rolename createdb login;
 
- from here - https://gist.github.com/sharoonthomas/0b425318b47b3dc999e1
+	"set password for above role by typing - \password rolename"
+
+	create database dbname owner rolename;
+
+	"check list of database using command - \l"
+
+	"If you can see database created by you, then everything is fine."
+
+	"Now you can quit from Postgres by writing - \q"
+	
+
+*****************************************************************************************************************************************
+
+4. Install virtualenv or virtualwrapper 
+
+	pip install virtualenv 
+
+			or 
+
+	pip install virtualwrapper
+
+*****************************************************************************************************************************************
+
+
+5. Create a new folder, go inside that folder and create a new virtual environment using virtualenv or virtualwrapper
+
+
+*****************************************************************************************************************************************
+
+
+6. Setup virtual environment using command :
+	
+	{ For virtualenv } -> virtualenv venv --system-site-packages 
+
+	{ For virtualwrapper } -> mkvirtualenv venv --system-site-packages 
+
+	For more reference for virtualwrapper check - https://virtualenvwrapper.readthedocs.io/en/latest/
+
+
+
+
+*****************************************************************************************************************************************
+
+7. Activate virtual environment: 
+
+	{ For virtualenv } -> source venv/bin/activate
+
+	{ For virtualwrapper } -> workon venv
+
+
+
+*****************************************************************************************************************************************
+
+
+8. Install trytond using command -> pip install trytond
+
+
+*****************************************************************************************************************************************
+
+
+9. Install tryton using command -> pip install tryton
+
+
+*****************************************************************************************************************************************
+
+
+10. Now you can install tryton modules like helloworld or cookiecutter from here: 
+
+	http://www.prakashpandey.in/2015/Aug/06/writing-your-first-tryton-module.html
+
+
+*****************************************************************************************************************************************
+
+11. Go inside the folder helloworld and create a new folder named etc and place trytond.conf file inside this folder, 
+
+	you can download the trytond.conf file :
+
+ 	from here - https://gist.github.com/sharoonthomas/0b425318b47b3dc999e1
 
 	Uncomment line no. 25 
 
-************************************************************************************************************************************************************
-8. Open postgres server by typing psql -> Create a new role inside postgres using command -> create role rolename createdb dbname;
 
-************************************************************************************************************************************************************
-9. Create a new database using that role by this command -> create database dbname owner rolename;
+*****************************************************************************************************************************************
 
-************************************************************************************************************************************************************
-10. Quit the server by command -> \q 
+ 
+12. Type in terminal -> pip install -U --force --no-deps .
 
-************************************************************************************************************************************************************
-11. Type in terminal -> pip install -U --force --no-deps .
 
-************************************************************************************************************************************************************
-12. Type in terminal -> pip install -r dev_requirements.txt 
+*****************************************************************************************************************************************
 
-************************************************************************************************************************************************************
 
-13. Type in terminal -> trytond --all -c etc/trytond.conf -d dbname
+13. Type in terminal -> pip install -r dev_requirements.txt 
 
-************************************************************************************************************************************************************
 
-14. In case you get any sqlite error then type this - export TRYTOND_DATABASE_URI=postgresql://fulfil:password@localhost:5432/
+*****************************************************************************************************************************************
 
-and then export DB_NAME=dbname
 
-************************************************************************************************************************************************************
+14. To upgrade in database : 
 
-15. Again type the command - trytond --all -c etc/trytond.conf -d dbname
+	Type in terminal -> trytond --all -c etc/trytond.conf -d dbname --all
 
-************************************************************************************************************************************************************
 
-16. Now press ctrl+alt+t and open new tab in terminal and now activate virtual environment again using source venv/bin/activate
+*****************************************************************************************************************************************
 
-and after that type -> tryton (this command will run the tryton client) 
 
-************************************************************************************************************************************************************
+15. In case you get any sqlite error then type this : 
 
-17. You will see a tryton client, now type the admin password you set when db initialization was going on and change the server to localhost:800
+	export TRYTOND_DATABASE_URI=postgresql://tryton:password@localhost:5432/
+
+	and then export DB_NAME=dbname
+
+
+*****************************************************************************************************************************************
+
+
+16. To run server : trytond --all -c etc/trytond.conf -d dbname
+
+
+*****************************************************************************************************************************************
+
+17. Now press ctrl+alt+t and open new tab in terminal and now activate virtual environment again using source venv/bin/activate
+
+	and after that type -> tryton (this command will run the tryton client) 
+
+*****************************************************************************************************************************************
+
+18. You will see a tryton client, now type the admin password you set when db initialization was going on and change the server to 	
+	localhost:800
 
